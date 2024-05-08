@@ -181,7 +181,7 @@ function handleAnswer(event) {
         monkeyScore++;
     }
 
-    // Update the displayed scores
+  // Update the displayed scores
     document.getElementById("score").innerText = `Your Score: ${playerScore} | Monkey's Score: ${monkeyScore}`;
 
     // Check for winning conditions (player or monkey reaches 10 points)
@@ -192,6 +192,11 @@ function handleAnswer(event) {
     } else if (monkeyScore >= 10) {
         document.getElementById("result").innerText = "The monkey won! Better luck next time!";
         endGame();
+        
+        // Show the monkey image when the monkey wins
+        document.getElementById("monkey-image").style.display = "block";
+        
+        // Display the "Play Another Game" button
         document.getElementById("play-another-game").style.display = "block";
     } else {
         // Move to the next question if the game hasn't ended
