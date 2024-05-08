@@ -109,6 +109,23 @@ let usedQuestions = []; // Array to track used questions
 
 // Initialize game
 function initGame() {
+    // Reset game state
+    playerScore = 0;
+    monkeyScore = 0;
+    usedQuestions = [];
+    
+    // Hide the Play Another Game button
+    document.getElementById("play-another-game").style.display = "none";
+    
+    // Reset the score and result texts
+    document.getElementById("score").innerText = "Your Score: 0 | Monkey's Score: 0";
+    document.getElementById("result").innerText = "";
+
+    // Re-enable option buttons
+    document.getElementById("option1").disabled = false;
+    document.getElementById("option2").disabled = false;
+
+    // Start the game by loading the first question
     loadQuestion();
 }
 
