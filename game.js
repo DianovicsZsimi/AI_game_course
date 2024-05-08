@@ -169,14 +169,23 @@ function loadQuestion() {
 function handleAnswer(event) {
     const isCorrect = event.target.dataset.correct === "true";
 
-    // Update player's score if the answer is correct
+    // Highlight the selected button based on whether the answer is correct or incorrect
     if (isCorrect) {
-        playerScore++;
         // Add green border for correct answer
         event.target.style.borderColor = 'green';
     } else {
         // Add red border for incorrect answer
         event.target.style.borderColor = 'red';
+    }
+
+    // Timeout function to remove the border after 0.5 seconds
+    setTimeout(() => {
+        event.target.style.borderColor = 'transparent';
+    }, 500);
+
+    // Update player's score if the answer is correct
+    if (isCorrect) {
+        playerScore++;
     }
 
     // Generate the monkey's random choice
@@ -212,11 +221,6 @@ function handleAnswer(event) {
         // Move to the next question if the game hasn't ended
         loadQuestion();
     }
-
-    // Add a timeout function to remove the border after 0.5 seconds
-    setTimeout(() => {
-        event.target.style.borderColor = '';
-    }, 500);
 }
 
 
