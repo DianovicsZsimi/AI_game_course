@@ -49,7 +49,57 @@ const questions = [
         question: "In the TV show 'Friends,' what is the name of Ross and Carol's son?",
         options: ["Ben", "Joey"],
         correct: 0
-    }
+    },
+{
+    question: "Which planet in our solar system has the most moons?",
+    options: ["Jupiter", "Saturn"],
+    correct: 1 // Index of the correct answer (0 for the first option, 1 for the second)
+},
+{
+    question: "Who was the first woman to win a Nobel Prize?",
+    options: ["Marie Curie", "Jane Addams"],
+    correct: 0
+},
+{
+    question: "Which language is spoken in Brazil?",
+    options: ["Portuguese", "Spanish"],
+    correct: 0
+},
+{
+    question: "Who painted the 'Mona Lisa'?",
+    options: ["Leonardo da Vinci", "Vincent van Gogh"],
+    correct: 0
+},
+{
+    question: "What is the largest desert in the world?",
+    options: ["Sahara", "Arctic"],
+    correct: 1
+},
+{
+    question: "What year did the Titanic sink?",
+    options: ["1912", "1913"],
+    correct: 0
+},
+{
+    question: "Who is known as the father of modern computer science?",
+    options: ["Alan Turing", "Albert Einstein"],
+    correct: 0
+},
+{
+    question: "Which gas is most abundant in the Earth's atmosphere?",
+    options: ["Nitrogen", "Oxygen"],
+    correct: 0
+},
+{
+    question: "What is the largest country in the world by land area?",
+    options: ["Russia", "Canada"],
+    correct: 0
+},
+{
+    question: "Who wrote the epic poem 'The Odyssey'?",
+    options: ["Homer", "Virgil"],
+    correct: 0
+}
 ];
 
 let playerScore = 0; // Track player's score
