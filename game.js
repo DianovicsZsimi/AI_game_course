@@ -136,8 +136,10 @@ function loadQuestion() {
     
     // Check if there are no unused questions left
     if (unusedQuestions.length === 0) {
+        // End the game and show the "Play Another Game" button
         document.getElementById("result").innerText = "Game Over! There are no questions left!";
         endGame();
+        document.getElementById("play-another-game").style.display = "block";
         return;
     }
 
@@ -186,9 +188,11 @@ function handleAnswer(event) {
     if (playerScore >= 10) {
         document.getElementById("result").innerText = "You won! You are smarter than the monkey!";
         endGame();
+        document.getElementById("play-another-game").style.display = "block";
     } else if (monkeyScore >= 10) {
         document.getElementById("result").innerText = "The monkey won! Better luck next time!";
         endGame();
+        document.getElementById("play-another-game").style.display = "block";
     } else {
         // Move to the next question if the game hasn't ended
         loadQuestion();
