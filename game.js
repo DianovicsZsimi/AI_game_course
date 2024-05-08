@@ -116,6 +116,9 @@ function initGame() {
     
     // Hide the Play Another Game button
     document.getElementById("play-another-game").style.display = "none";
+
+    // Hide the monkey image
+    document.getElementById("monkey-image").style.display = "none";
     
     // Reset the score and result texts
     document.getElementById("score").innerText = "Your Score: 0 | Monkey's Score: 0";
