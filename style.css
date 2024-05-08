@@ -80,7 +80,7 @@ button:hover {
     position: fixed;
     right: 10px; /* Adjust distance from the right */
     bottom: 10px; /* Adjust distance from the bottom */
-    width: 100px; /* Adjust the width as needed */
+    width: 300px; /* Adjust the width as needed */
     height: auto; /* Maintain aspect ratio */
 }
 
