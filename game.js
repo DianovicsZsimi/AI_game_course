@@ -172,6 +172,11 @@ function handleAnswer(event) {
     // Update player's score if the answer is correct
     if (isCorrect) {
         playerScore++;
+        // Add green border for correct answer
+        event.target.style.borderColor = 'green';
+    } else {
+        // Add red border for incorrect answer
+        event.target.style.borderColor = 'red';
     }
 
     // Generate the monkey's random choice
@@ -184,29 +189,36 @@ function handleAnswer(event) {
         monkeyScore++;
     }
 
- // Update the displayed scores
+    // Update the displayed scores
     document.getElementById("score").innerText = `Your Score: ${playerScore} | Monkey's Score: ${monkeyScore}`;
 
-    // Check for winning conditions (player or monkey reaches 10 points)
+    // Check for game-ending conditions
     if (playerScore >= 10 && monkeyScore >= 10) {
-        // Tie condition: Both player and monkey reach 10 points
+        // Tie condition
         document.getElementById("result").innerText = "Tie! Try again!";
         endGame();
         document.getElementById("play-another-game").style.display = "block";
     } else if (playerScore >= 10) {
+        // Player wins
         document.getElementById("result").innerText = "You won! You are smarter than the monkey!";
         endGame();
         document.getElementById("play-another-game").style.display = "block";
     } else if (monkeyScore >= 10) {
+        // Monkey wins
         document.getElementById("result").innerText = "The monkey won! Better luck next time!";
         endGame();
-        document.getElementById("monkey-image").style.display = "block";
         document.getElementById("play-another-game").style.display = "block";
     } else {
         // Move to the next question if the game hasn't ended
         loadQuestion();
     }
+
+    // Add a timeout function to remove the border after 0.5 seconds
+    setTimeout(() => {
+        event.target.style.borderColor = '';
+    }, 500);
 }
+
 
 // Function to end the game and disable answer buttons
 function endGame() {
