@@ -239,5 +239,23 @@ document.getElementById("option2").addEventListener("click", handleAnswer);
 // Event listener for the "Play Another Game" button
 document.getElementById("play-another-game").addEventListener("click", initGame);
 
+// Event listener for the "Let's Play!" button
+document.getElementById("start-game").addEventListener("click", function() {
+    // Hide the introduction section
+    document.getElementById("introduction-container").style.display = "none";
+    
+    // Display the game container
+    document.getElementById("game-container").style.display = "block";
+
+    // Initialize the game
+    initGame();
+});
+
 // Initialize the game when the page loads
-window.onload = initGame;
+window.onload = function() {
+    // Hide the game container initially
+    document.getElementById("game-container").style.display = "none";
+
+    // Set up other initializations or game settings here if necessary
+};
+
