@@ -3,7 +3,7 @@ const questions = [
     {
         question: "What year was the Magna Carta signed?",
         options: ["1215", "1315"],
-        correct: 0
+        correct: 0 // Index of the correct answer (0 for the first option, 1 for the second)
     },
     {
         question: "Who was the first emperor of China?",
@@ -50,60 +50,62 @@ const questions = [
         options: ["Ben", "Joey"],
         correct: 0
     },
-{
-    question: "Which planet in our solar system has the most moons?",
-    options: ["Jupiter", "Saturn"],
-    correct: 1 // Index of the correct answer (0 for the first option, 1 for the second)
-},
-{
-    question: "Who was the first woman to win a Nobel Prize?",
-    options: ["Marie Curie", "Jane Addams"],
-    correct: 0
-},
-{
-    question: "Which language is spoken in Brazil?",
-    options: ["Portuguese", "Spanish"],
-    correct: 0
-},
-{
-    question: "Who painted the 'Mona Lisa'?",
-    options: ["Leonardo da Vinci", "Vincent van Gogh"],
-    correct: 0
-},
-{
-    question: "What is the largest desert in the world?",
-    options: ["Sahara", "Arctic"],
-    correct: 1
-},
-{
-    question: "What year did the Titanic sink?",
-    options: ["1912", "1913"],
-    correct: 0
-},
-{
-    question: "Who is known as the father of modern computer science?",
-    options: ["Alan Turing", "Albert Einstein"],
-    correct: 0
-},
-{
-    question: "Which gas is most abundant in the Earth's atmosphere?",
-    options: ["Nitrogen", "Oxygen"],
-    correct: 0
-},
-{
-    question: "What is the largest country in the world by land area?",
-    options: ["Russia", "Canada"],
-    correct: 0
-},
-{
-    question: "Who wrote the epic poem 'The Odyssey'?",
-    options: ["Homer", "Virgil"],
-    correct: 0
-}
+    // Additional questions:
+    {
+        question: "Which planet in our solar system has the most moons?",
+        options: ["Jupiter", "Saturn"],
+        correct: 1
+    },
+    {
+        question: "Who was the first woman to win a Nobel Prize?",
+        options: ["Marie Curie", "Jane Addams"],
+        correct: 0
+    },
+    {
+        question: "Which language is spoken in Brazil?",
+        options: ["Portuguese", "Spanish"],
+        correct: 0
+    },
+    {
+        question: "Who painted the 'Mona Lisa'?",
+        options: ["Leonardo da Vinci", "Vincent van Gogh"],
+        correct: 0
+    },
+    {
+        question: "What is the largest desert in the world?",
+        options: ["Sahara", "Arctic"],
+        correct: 1
+    },
+    {
+        question: "What year did the Titanic sink?",
+        options: ["1912", "1913"],
+        correct: 0
+    },
+    {
+        question: "Who is known as the father of modern computer science?",
+        options: ["Alan Turing", "Albert Einstein"],
+        correct: 0
+    },
+    {
+        question: "Which gas is most abundant in the Earth's atmosphere?",
+        options: ["Nitrogen", "Oxygen"],
+        correct: 0
+    },
+    {
+        question: "What is the largest country in the world by land area?",
+        options: ["Russia", "Canada"],
+        correct: 0
+    },
+    {
+        question: "Who wrote the epic poem 'The Odyssey'?",
+        options: ["Homer", "Virgil"],
+        correct: 0
+    }
 ];
 
-let playerScore = 0; // Track player's score
-let monkeyScore = 0; // Track monkey's score
+let playerScore = 0; // Player's score
+let monkeyScore = 0; // Monkey's score
+let usedQuestions = []; // Array to track used questions
 
 // Initialize game
 function initGame() {
@@ -112,16 +114,33 @@ function initGame() {
 
 // Load a question and its options
 function loadQuestion() {
-    const currentQuestionIndex = Math.floor(Math.random() * questions.length); // Choose a random question
-    const currentQuestion = questions[currentQuestionIndex];
+    // Get unused question indices
+    let unusedQuestions = questions.map((_, index) => index).filter(index => !usedQuestions.includes(index));
+    
+    // Check if there are no unused questions left
+    if (unusedQuestions.length === 0) {
+        document.getElementById("result").innerText = "Game Over! There are no questions left!";
+        endGame();
+        return;
+    }
 
+    // Choose a random question from the unused ones
+    const randomIndex = Math.floor(Math.random() * unusedQuestions.length);
+    const currentQuestionIndex = unusedQuestions[randomIndex];
+    
+    const currentQuestion = questions[currentQuestionIndex];
+    
+    // Display the question and options
     document.getElementById("question").innerText = currentQuestion.question;
     document.getElementById("option1").innerText = currentQuestion.options[0];
     document.getElementById("option2").innerText = currentQuestion.options[1];
 
-    // Save the correct answer index and current question index in the game state for future use
+    // Set data attributes for answer buttons
     document.getElementById("option1").dataset.correct = currentQuestion.correct === 0;
     document.getElementById("option2").dataset.correct = currentQuestion.correct === 1;
+
+    // Add the current question index to the usedQuestions array
+    usedQuestions.push(currentQuestionIndex);
 }
 
 // Handle the player's answer
@@ -133,19 +152,20 @@ function handleAnswer(event) {
         playerScore++;
     }
 
-    // Generate the monkey's answer randomly
+    // Generate the monkey's random choice
     const monkeyChoice = Math.floor(Math.random() * 2);
-    const currentQuestionIndex = Math.floor(Math.random() * questions.length);
+    const currentQuestionIndex = usedQuestions[usedQuestions.length - 1]; // The most recent question
     const currentQuestion = questions[currentQuestionIndex];
 
+    // Update monkey's score if its choice is correct
     if (monkeyChoice === currentQuestion.correct) {
         monkeyScore++;
     }
 
-    // Update scores
+    // Update the displayed scores
     document.getElementById("score").innerText = `Your Score: ${playerScore} | Monkey's Score: ${monkeyScore}`;
 
-    // Check for game end (when either the player or the monkey reaches 10 points)
+    // Check for winning conditions (player or monkey reaches 10 points)
     if (playerScore >= 10) {
         document.getElementById("result").innerText = "You won! You are smarter than the monkey!";
         endGame();
