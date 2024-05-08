@@ -1,0 +1,23 @@
+/* Basic styling for the game */
+#game-container {
+    text-align: center;
+    margin: 20px;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#result {
+    font-weight: bold;
+}
