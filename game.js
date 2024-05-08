@@ -178,50 +178,52 @@ function handleAnswer(event) {
         event.target.style.borderColor = 'red';
     }
 
-    // Timeout function to remove the border after 0.5 seconds
+    // Timeout function to remove the border after 0.5 seconds and then load the next question
     setTimeout(() => {
+        // Reset the button border color
         event.target.style.borderColor = 'transparent';
+
+        // Update player's score if the answer is correct
+        if (isCorrect) {
+            playerScore++;
+        }
+
+        // Generate the monkey's random choice
+        const monkeyChoice = Math.floor(Math.random() * 2);
+        const currentQuestionIndex = usedQuestions[usedQuestions.length - 1]; // The most recent question
+        const currentQuestion = questions[currentQuestionIndex];
+
+        // Update monkey's score if its choice is correct
+        if (monkeyChoice === currentQuestion.correct) {
+            monkeyScore++;
+        }
+
+        // Update the displayed scores
+        document.getElementById("score").innerText = `Your Score: ${playerScore} | Monkey's Score: ${monkeyScore}`;
+
+        // Check for game-ending conditions
+        if (playerScore >= 10 && monkeyScore >= 10) {
+            // Tie condition
+            document.getElementById("result").innerText = "Tie! Try again!";
+            endGame();
+            document.getElementById("play-another-game").style.display = "block";
+        } else if (playerScore >= 10) {
+            // Player wins
+            document.getElementById("result").innerText = "You won! You are smarter than the monkey!";
+            endGame();
+            document.getElementById("play-another-game").style.display = "block";
+        } else if (monkeyScore >= 10) {
+            // Monkey wins
+            document.getElementById("result").innerText = "The monkey won! Better luck next time!";
+            endGame();
+            document.getElementById("play-another-game").style.display = "block";
+        } else {
+            // Load the next question if the game hasn't ended
+            loadQuestion();
+        }
     }, 500);
-
-    // Update player's score if the answer is correct
-    if (isCorrect) {
-        playerScore++;
-    }
-
-    // Generate the monkey's random choice
-    const monkeyChoice = Math.floor(Math.random() * 2);
-    const currentQuestionIndex = usedQuestions[usedQuestions.length - 1]; // The most recent question
-    const currentQuestion = questions[currentQuestionIndex];
-
-    // Update monkey's score if its choice is correct
-    if (monkeyChoice === currentQuestion.correct) {
-        monkeyScore++;
-    }
-
-    // Update the displayed scores
-    document.getElementById("score").innerText = `Your Score: ${playerScore} | Monkey's Score: ${monkeyScore}`;
-
-    // Check for game-ending conditions
-    if (playerScore >= 10 && monkeyScore >= 10) {
-        // Tie condition
-        document.getElementById("result").innerText = "Tie! Try again!";
-        endGame();
-        document.getElementById("play-another-game").style.display = "block";
-    } else if (playerScore >= 10) {
-        // Player wins
-        document.getElementById("result").innerText = "You won! You are smarter than the monkey!";
-        endGame();
-        document.getElementById("play-another-game").style.display = "block";
-    } else if (monkeyScore >= 10) {
-        // Monkey wins
-        document.getElementById("result").innerText = "The monkey won! Better luck next time!";
-        endGame();
-        document.getElementById("play-another-game").style.display = "block";
-    } else {
-        // Move to the next question if the game hasn't ended
-        loadQuestion();
-    }
 }
+
 
 
 // Function to end the game and disable answer buttons
