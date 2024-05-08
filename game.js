@@ -221,7 +221,7 @@ function handleAnswer(event) {
             // Load the next question if the game hasn't ended
             loadQuestion();
         }
-    }, 500);
+    }, 700);
 }
 
 
