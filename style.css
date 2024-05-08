@@ -45,16 +45,20 @@ h1 {
 
 /* Option Buttons Styles */
 button {
-    padding: 15px; /* Increase padding for larger buttons */
-    margin: 10px; /* Space out the buttons */
-    font-size: 18px; /* Increase the font size */
-    border-radius: 8px; /* Rounded corners for a friendlier look */
-    border: none;
-    background-color: #4CAF50; /* Green background color */
+    padding: 15px; /* Adjust padding as needed */
+    margin: 10px; /* Adjust margin as needed */
+    border-radius: 8px; /* Rounded corners */
+    border: 2px solid transparent; /* Transparent border by default */
+    background-color: #4CAF50; /* Greenish background color */
     color: white; /* White text color */
-    cursor: pointer;
-    transition: background-color 0.3s;
+    cursor: pointer; /* Show cursor as a pointer */
+    transition: border-color 0.5s; /* Smooth transition for border color */
+    text-align: center; /* Center the text */
+    display: inline-block; /* Inline-block display for buttons */
+    font-size: 16px; /* Font size */
+    width: 200px; /* Set consistent width for buttons */
 }
+
 
 /* Button Hover Effect */
 button:hover {
