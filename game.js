@@ -3,7 +3,7 @@ const questions = [
     {
         question: "What year was the Magna Carta signed?",
         options: ["1215", "1315"],
-        correct: 0 // Index of the correct answer (0 for the first option, 1 for the second)
+        correct: 0
     },
     {
         question: "Who was the first emperor of China?",
@@ -52,6 +52,9 @@ const questions = [
     }
 ];
 
+let playerScore = 0; // Track player's score
+let monkeyScore = 0; // Track monkey's score
+
 // Initialize game
 function initGame() {
     loadQuestion();
@@ -61,7 +64,7 @@ function initGame() {
 function loadQuestion() {
     const currentQuestionIndex = Math.floor(Math.random() * questions.length); // Choose a random question
     const currentQuestion = questions[currentQuestionIndex];
-    
+
     document.getElementById("question").innerText = currentQuestion.question;
     document.getElementById("option1").innerText = currentQuestion.options[0];
     document.getElementById("option2").innerText = currentQuestion.options[1];
@@ -75,11 +78,40 @@ function loadQuestion() {
 function handleAnswer(event) {
     const isCorrect = event.target.dataset.correct === "true";
 
-    // Logic for handling correct/incorrect answers, scoring, and game progress goes here
-    // E.g., update player score if correct, monkey's random choice, check for end of game, etc.
+    // Update player's score if the answer is correct
+    if (isCorrect) {
+        playerScore++;
+    }
 
-    // Move to the next question
-    loadQuestion();
+    // Generate the monkey's answer randomly
+    const monkeyChoice = Math.floor(Math.random() * 2);
+    const currentQuestionIndex = Math.floor(Math.random() * questions.length);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    if (monkeyChoice === currentQuestion.correct) {
+        monkeyScore++;
+    }
+
+    // Update scores
+    document.getElementById("score").innerText = `Your Score: ${playerScore} | Monkey's Score: ${monkeyScore}`;
+
+    // Check for game end (when either the player or the monkey reaches 10 points)
+    if (playerScore >= 10) {
+        document.getElementById("result").innerText = "You won! You are smarter than the monkey!";
+        endGame();
+    } else if (monkeyScore >= 10) {
+        document.getElementById("result").innerText = "The monkey won! Better luck next time!";
+        endGame();
+    } else {
+        // Move to the next question if the game hasn't ended
+        loadQuestion();
+    }
+}
+
+// Function to end the game and disable answer buttons
+function endGame() {
+    document.getElementById("option1").disabled = true;
+    document.getElementById("option2").disabled = true;
 }
 
 // Event listeners for answer buttons
@@ -88,4 +120,3 @@ document.getElementById("option2").addEventListener("click", handleAnswer);
 
 // Initialize the game when the page loads
 window.onload = initGame;
-
