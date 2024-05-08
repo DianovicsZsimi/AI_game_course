@@ -205,5 +205,8 @@ function endGame() {
 document.getElementById("option1").addEventListener("click", handleAnswer);
 document.getElementById("option2").addEventListener("click", handleAnswer);
 
+// Event listener for the "Play Another Game" button
+document.getElementById("play-another-game").addEventListener("click", initGame);
+
 // Initialize the game when the page loads
 window.onload = initGame;
